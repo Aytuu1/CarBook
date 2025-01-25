@@ -11,7 +11,7 @@ namespace CarBook.Application.Services
     {
       services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(ServiceRegistiration).Assembly));
     }
-
+   
 
 
 

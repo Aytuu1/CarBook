@@ -1,36 +1,25 @@
-﻿using CarBook.Application.Features.CQRS.Queries.CategoryQueries;
-using CarBook.Application.Features.Mediator.Commands.CategoryCommands;
-using CarBook.Application.Features.Mediator.Handlers.CategoryHandlers;
-using Microsoft.AspNetCore.Http;
+﻿using CarBook.Application.Features.Mediator.Commands.CategoryCommands;
+using CarBook.Application.Features.Mediator.Queries.CategoryQueries;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarBook.WebApi.Controllers
 {
-    [Route("api/[controller]")]
+  [Route("api/[controller]")]
   [ApiController]
   public class CategoryController : ControllerBase
   {
-    private readonly GetCategoryQueryHandler _getCategoryQueryHandler;
-    private readonly GetCategoryByIdQueryHandler _getCategoryByIdQueryHandler;
-    private readonly CreateCategoryCommandHandler _createCategoryCommandHandler;
-    private readonly UpdateCategoryCommandHandler _updateCategoryCommandHandler;
-    private readonly RemoveCategoryCommandHandler _removeCategoryCommandHandler;
+    private readonly IMediator _mediator;
 
-    public CategoryController(GetCategoryQueryHandler getCategoryQueryHandler, GetCategoryByIdQueryHandler getCategoryByIdQueryHandler, CreateCategoryCommandHandler createCategoryCommandHandler, UpdateCategoryCommandHandler updateCategoryCommandHandler, RemoveCategoryCommandHandler removeCategoryCommandHandler)
+    public CategoryController(IMediator mediator)
     {
-      _getCategoryQueryHandler = getCategoryQueryHandler;
-      _getCategoryByIdQueryHandler = getCategoryByIdQueryHandler;
-      _createCategoryCommandHandler = createCategoryCommandHandler;
-      _updateCategoryCommandHandler = updateCategoryCommandHandler;
-      _removeCategoryCommandHandler = removeCategoryCommandHandler;
+      _mediator = mediator;
     }
-
-
 
     [HttpGet]
     public async Task<IActionResult> CategoryList()
     {
-      var values = await _getCategoryQueryHandler.Handle();
+      var values = await _mediator.Send(new GetCategoryQuery());
       return Ok(values);
     }
 
@@ -38,26 +27,26 @@ namespace CarBook.WebApi.Controllers
     [HttpGet("{id}")]
     public async Task<IActionResult> GetCategory(int id)
     {
-      var value = await _getCategoryByIdQueryHandler.Handle(new GetCategoryByIdQuery(id));
+      var value = await _mediator.Send(new GetCategoryByIdQuery(id));
       return Ok(value);
     }
 
     [HttpPost]
     public async Task<IActionResult> CreateCategory(CreateCategoryCommand command)
     {
-      await _createCategoryCommandHandler.Handle(command);
+      await _mediator.Send(command);
       return Ok("Kategori Eklendi");
     }
     [HttpPut]
     public async Task<IActionResult> UpdateCategory(UpdateCategoryCommand command)
     {
-      await _updateCategoryCommandHandler.Handle(command);
+      await _mediator.Send(command);
       return Ok("Kategori güncellendi");
     }
     [HttpDelete]
     public async Task<IActionResult> RemoveCategory(int id)
     {
-      await _removeCategoryCommandHandler.Handle(new RemoveCategoryCommand(id));
+      await _mediator.Send(new RemoveCategoryCommand(id));
       return Ok("Kategori Silindi");
     }
 
