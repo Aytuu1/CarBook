@@ -1,12 +1,12 @@
-﻿using CarBook.Application.Features.CQRS.Commands.AboutCommands;
-using CarBook.Application.Features.CQRS.Handlers.AboutHandlers;
-using CarBook.Application.Features.CQRS.Queries.AboutQueries;
+﻿using CarBook.Application.Features.CQRS.Queries.AboutQueries;
+using CarBook.Application.Features.Mediator.Commands.AboutCommands;
+using CarBook.Application.Features.Mediator.Handlers.AboutHandlers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarBook.WebApi.Controllers
 {
-  [Route("api/[controller]")]
+    [Route("api/[controller]")]
   [ApiController]
   public class AboutsController : ControllerBase
   {
