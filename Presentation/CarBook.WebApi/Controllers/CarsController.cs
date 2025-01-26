@@ -1,7 +1,6 @@
 ﻿using CarBook.Application.Features.Mediator.Commands.CarCommands;
 using CarBook.Application.Features.Mediator.Handlers.CarHandlers;
 using CarBook.Application.Features.Mediator.Queries.CarQueries;
-using CarBook.Application.Interfaces.CarInterfaces;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -54,15 +53,19 @@ namespace CarBook.WebApi.Controllers
       return Ok("Araba Bilgisi Eklendi");
     }
 
-    [HttpGet("car")]
+    [HttpGet("GetCarWithBrand")]
     public IActionResult GetCarWithBrand()
     {
       var values = _getCarWithBrandQueryHandler.Handle();
       return Ok(values);
     }
+    [HttpGet("GetLast5CarsWithBrand")]
 
-
-
+    public async Task<IActionResult> GetLast5Cars()
+    {
+      var value = await _mediator.Send(new GetLast5CarsWithBrandQuery());
+      return Ok(value);
+    }
 
 
 

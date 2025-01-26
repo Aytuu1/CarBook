@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CarBook.Application.Features.Mediator.Results.CarResults
+﻿namespace CarBook.Application.Features.Mediator.Results.CarResults
 {
-    public class GetCarWithBrandQueryResult
+  public class GetCarWithBrandQueryResult
     {
         public int CarID { get; set; }
         public int BrandID { get; set; }
