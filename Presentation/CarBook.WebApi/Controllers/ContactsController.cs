@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CarBook.WebApi.Controllers
 {
-  [Route("api/[controller]")]
+  [Route("api/Contacts")]
   [ApiController]
   public class ContactsController : ControllerBase
   {
@@ -30,14 +30,14 @@ namespace CarBook.WebApi.Controllers
       return Ok(result);
     }
     [HttpPost]
-    public async Task<IActionResult> CreateContact(CreateContactCommand command)
+    public async Task<IActionResult> CreateContact([FromBody]CreateContactCommand command)
     {
       await _mediator.Send(command);
       return Ok("Contact information added");
     }
 
     [HttpPut]
-    public async Task<IActionResult> UpdateContact(UpdateContactCommand command)
+    public async Task<IActionResult> UpdateContact([FromBody] UpdateContactCommand command)
     {
       await _mediator.Send(command);
       return Ok("Contact information updated");

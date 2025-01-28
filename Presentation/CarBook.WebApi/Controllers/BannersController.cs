@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CarBook.WebApi.Controllers
 {
-  [Route("api/[controller]")]
+  [Route("api/Banners")]
   [ApiController]
   public class BannersController : ControllerBase
   {
@@ -24,29 +24,29 @@ namespace CarBook.WebApi.Controllers
       return Ok(values);
     }
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetBanner(int id)
+    public async Task<IActionResult> GetBanner([FromRoute] int id)
     {
       var value = await _mediator.Send(new GetBannerByIdQuery(id));
       return Ok(value);
     }
     [HttpPost]
-    public async Task<IActionResult> CreateBanner(CreateBannerCommands commands)
+    public async Task<IActionResult> CreateBanner([FromBody] CreateBannerCommands commands)
     {
       await _mediator.Send(commands);
-      return Ok("Bilgi Eklendi");
+      return Ok("Created succesfully information");
     }
     [HttpPut]
-    public async Task<IActionResult> UpdateBanner(UpdateBannerCommand command)
+    public async Task<IActionResult> UpdateBanner([FromBody] UpdateBannerCommand command)
     {
       await _mediator.Send(command);
-      return Ok("Bilgi güncellendi");
+      return Ok("Updated succesfully information");
     }
 
     [HttpDelete]
-    public async Task<IActionResult> RemoveBanner(int id)
+    public async Task<IActionResult> RemoveBanner([FromRoute] int id)
     {
       await _mediator.Send(new RemoveBannerCommand(id));
-      return Ok("Bilgi Silindi");
+      return Ok("Deleted succesfully information");
     }
 
 

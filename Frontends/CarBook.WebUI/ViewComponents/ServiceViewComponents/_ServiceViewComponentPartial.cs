@@ -19,6 +19,7 @@ namespace CarBook.WebUI.ViewComponents.ServiceViewComponents
       {
         var jsonData = await responseMessage.Content.ReadAsStringAsync();
         var readedServiceValue = JsonConvert.DeserializeObject<List<ResultServiceDto>>(jsonData);
+        return View(readedServiceValue);
       }
       return View();
     }

@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CarBook.WebApi.Controllers
 {
-  [Route("api/[controller]")]
+  [Route("api/FooterAddresses")]
   [ApiController]
   public class FooterAddressesController : ControllerBase
   {
@@ -29,14 +29,14 @@ namespace CarBook.WebApi.Controllers
       return Ok(value);
     }
     [HttpPost]
-    public async Task<IActionResult> CreateFooterAddresses(CreateFooterAddressCommand command)
+    public async Task<IActionResult> CreateFooterAddresses([FromBody]CreateFooterAddressCommand command)
     {
       await _mediator.Send(command);
       return Ok("Alt adres bilgisi eklendi");
 
     }
     [HttpPut]
-    public async Task<IActionResult> UpdateFooterAddresses(UpdateFooterAddressCommand command)
+    public async Task<IActionResult> UpdateFooterAddresses([FromBody]UpdateFooterAddressCommand command)
     {
       await _mediator.Send(command);
       return Ok("Alt adres bilgisi güncellendi");

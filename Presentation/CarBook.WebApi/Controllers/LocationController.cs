@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CarBook.WebApi.Controllers
 {
-  [Route("api/[controller]")]
+  [Route("api/Location")]
   [ApiController]
   public class LocationController : ControllerBase
   {
@@ -40,6 +40,12 @@ namespace CarBook.WebApi.Controllers
     {
       await _mediator.Send(new RemoveLocationCommand(id));
       return Ok("Location information deleted");
+    }
+    [HttpPut]
+    public async Task<IActionResult> UpdateLocation(UpdateLocationCommand command)
+    {
+      await _mediator.Send(command);
+      return Ok("Location information updated");
     }
 
   }

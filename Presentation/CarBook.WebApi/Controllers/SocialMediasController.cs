@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CarBook.WebApi.Controllers
 {
-  [Route("api/[controller]")]
+  [Route("api/SocialMedias")]
   [ApiController]
   public class SocialMediasController : ControllerBase
   {

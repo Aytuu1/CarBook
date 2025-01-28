@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CarBook.WebApi.Controllers
 {
-  [Route("api/[controller]")]
+  [Route("api/Brands")]
   [ApiController]
   public class BrandsController : ControllerBase
   {
@@ -24,30 +24,30 @@ namespace CarBook.WebApi.Controllers
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetBrand(int id)
+    public async Task<IActionResult> GetBrand([FromRoute] int id)
     {
       var values = await _mediator.Send(new GetBrandByIdQuery(id));
       return Ok(values);
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateBrand(CreateBrandCommands command)
+    public async Task<IActionResult> CreateBrand([FromBody] CreateBrandCommands command)
     {
       await _mediator.Send(command);
-      return Ok("Marka bilgisi Eklendi");
+      return Ok("Created information brand");
     }
     [HttpPut]
-    public async Task<IActionResult> UpdateBrand(UpdateBrandCommands commands)
+    public async Task<IActionResult> UpdateBrand([FromBody] UpdateBrandCommands commands)
     {
       await _mediator.Send(commands);
-      return Ok("Marka bilgisi güncellendi");
+      return Ok("Updated information brand");
     }
 
-    [HttpDelete]
-    public async Task<IActionResult> RemoveBrand(int id)
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> RemoveBrand([FromRoute] int id)
     {
       await _mediator.Send(new RemoveBrandCommands(id));
-      return Ok("Marka bilgileri silindi");
+      return Ok("Deleted information brand");
     }
 
 

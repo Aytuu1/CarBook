@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CarBook.WebApi.Controllers
 {
-  [Route("api/[controller]")]
+  [Route("api/Testimonials")]
   [ApiController]
   public class TestimonialsController : ControllerBase
   {
@@ -40,7 +40,12 @@ namespace CarBook.WebApi.Controllers
       await _mediator.Send(new RemoveTestimonialCommand(id));
       return Ok("Testimonial information deleted succesfully");
     }
-
+    [HttpPost]
+    public async Task<IActionResult> CreateTestimonial(CreateTestimonialCommand command)
+    {
+      await _mediator.Send(command);
+      return Ok("Testimonial information Created succesfully");
+    }
 
 
 

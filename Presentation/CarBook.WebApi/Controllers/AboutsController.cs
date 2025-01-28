@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CarBook.WebApi.Controllers
 {
-  [Route("api/[controller]")]
+  [Route("api/Abouts")]
   [ApiController]
   public class AboutsController : ControllerBase
   {
@@ -24,28 +24,28 @@ namespace CarBook.WebApi.Controllers
       return Ok(values);
     }
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetAbout(int id)
+    public async Task<IActionResult> GetAbout([FromRoute]int id)
     {
       var values = await _mediator.Send(new GetAboutByIdQuery(id));
       return Ok(values);
     }
     [HttpPost]
-    public async Task<IActionResult> CreateAbout(CreateAboutCommand command)
+    public async Task<IActionResult> CreateAbout([FromBody]CreateAboutCommand command)
     {
       await _mediator.Send(command);
-      return Ok("Hakkımda bilgisi eklendi");
+      return Ok("About me information was successfully created");
     }
     [HttpDelete]
-    public async Task<IActionResult> RemoveAbout(int id)
+    public async Task<IActionResult> RemoveAbout([FromRoute]int id)
     {
       await _mediator.Send(new RemoveAboutCommand(id));
-      return Ok("Hakkımda bilgisi başarıyla silindi");
+      return Ok("About me information was successfully deleted");
     }
     [HttpPut]
-    public async Task<IActionResult> UpdateAbout(UpdateAboutCommand command)
+    public async Task<IActionResult> UpdateAbout([FromBody]UpdateAboutCommand command)
     {
       await _mediator.Send(command);
-      return Ok("Hakkımda bilgisi güncellendi");
+      return Ok("About me information was successfully updated");
     }
 
 

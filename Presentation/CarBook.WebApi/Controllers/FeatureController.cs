@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CarBook.WebApi.Controllers
 {
-  [Route("api/[controller]")]
+  [Route("api/Feature")]
   [ApiController]
   public class FeatureController : ControllerBase
   {
@@ -33,20 +33,20 @@ namespace CarBook.WebApi.Controllers
     public async Task<IActionResult> CreateFeature([FromBody] CreateFeatureCommand command)
     {
       await _mediator.Send(command);
-      return Ok("Özellik başarıyla eklendi");
+      return Ok("İnformation succesfully created");
     }
     [HttpPut]
     public async Task<IActionResult> UpdateFeature([FromBody] UpdateFeatureCommand command)
     {
       await _mediator.Send(command);
-      return Ok("Özellik başarıyla güncellendi");
+      return Ok("İnformation succesfully updated");
     }
 
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteFeature([FromRoute] int id)
     {
       await _mediator.Send(new RemoveFeatureCommand(id));
-      return Ok("Özellik başarıyla silindi");
+      return Ok("İnformation succesfully deleted");
     }
 
 

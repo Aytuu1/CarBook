@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CarBook.WebApi.Controllers
 {
-  [Route("api/[controller]")]
+  [Route("api/Services")]
   [ApiController]
   public class ServicesController : ControllerBase
   {
@@ -34,20 +34,20 @@ namespace CarBook.WebApi.Controllers
     public async Task<IActionResult> CreateService([FromBody] CreateServiceCommand command)
     {
       await _mediator.Send(command);
-      return Ok("Marka bilgisi Eklendi");
+      return Ok("Created information Service");
     }
     [HttpPut]
     public async Task<IActionResult> UpdateService([FromBody] UpdateServiceCommand commands)
     {
       await _mediator.Send(commands);
-      return Ok("Marka bilgisi güncellendi");
+      return Ok("updated information Service");
     }
 
     [HttpDelete("{id}")]
     public async Task<IActionResult> RemoveService([FromRoute] int id)
     {
       await _mediator.Send(new RemoveServiceCommand(id));
-      return Ok("Marka bilgileri silindi");
+      return Ok("Deleted information Service");
     }
 
 
