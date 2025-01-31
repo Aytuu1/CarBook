@@ -17,13 +17,19 @@ namespace CarBook.Persistence.Repositories.CarRepository
 
     public List<Car> GetCarsListWithBrands()
     {
-      var values = _context.Cars.Include(x => x.Brand).ToList();
+      var values = _context.Cars.Include(x => x.Brand).AsNoTracking().ToList();
+      return values;
+    }
+
+    public async Task<List<CarPricing>> GetCarsWithPricings()
+    {
+      var values = await _context.CarPricings.Include(x => x.Car).ThenInclude(x => x.Brand).Include(y => y.Pricing).Where(z=>z.PricingID==2).AsNoTracking().ToListAsync();
       return values;
     }
 
     public async Task<List<Car>> GetLast5CarsWithBrands()
     {
-      var values = await _context.Cars.Include(x => x.Brand).OrderByDescending(x => x.CarID).Take(5).ToListAsync();
+      var values = await _context.Cars.Include(x => x.Brand).AsNoTracking().OrderByDescending(x => x.CarID).Take(5).ToListAsync();
       return values;
 
     }

@@ -29,7 +29,7 @@ namespace CarBook.WebApi.Controllers
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetCar([FromRoute]int id)
+    public async Task<IActionResult> GetCar([FromRoute] int id)
     {
       var values = await _mediator.Send(new GetCarByIdQuery(id));
       return Ok(values);
@@ -41,13 +41,13 @@ namespace CarBook.WebApi.Controllers
       return Ok("Deleted information Car");
     }
     [HttpPut]
-    public async Task<IActionResult> UpdateCar([FromBody]UpdateCarCommand command)
+    public async Task<IActionResult> UpdateCar([FromBody] UpdateCarCommand command)
     {
       await _mediator.Send(command);
       return Ok("Araba bilgisi güncellendi");
     }
     [HttpPost]
-    public async Task<IActionResult> CreateCar([FromBody]CreateCarCommand command)
+    public async Task<IActionResult> CreateCar([FromBody] CreateCarCommand command)
     {
       await _mediator.Send(command);
       return Ok("Deleted information Car");
@@ -67,8 +67,12 @@ namespace CarBook.WebApi.Controllers
       return Ok(value);
     }
 
-
-
+    [HttpGet("GetCarsWithPricing")]
+    public async Task<IActionResult> GetCarsWithPricing()
+    {
+      var getCarWithPricing = await _mediator.Send(new GetCarWithPricingQuery());
+      return Ok(getCarWithPricing);
+    }
 
 
 

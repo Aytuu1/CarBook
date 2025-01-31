@@ -7,5 +7,11 @@ namespace CarBook.Application.Interfaces.CarInterfaces
   {
     List<Car> GetCarsListWithBrands();
     Task<List<Car>> GetLast5CarsWithBrands();
+
+    Task<List<CarPricing>> GetCarsWithPricings();
+
+
+
+
   }
 }
